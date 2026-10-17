@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>میدنایت | دنیای رمان‌های آتنا</title>
+    <!-- مجموعه کامل فونت‌های فارسی رایگان -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/lalezar-font@v3.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/samim-font@v4.0.5/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/gandom-font@v3.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/parastoo-font@v1.4.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        :root {
+            --bg-color: #08070b;
+            --card-bg: #121018;
+            --card-hover: #1a1624;
+            --silver-text: #d1d5db;
+            --silver-muted: #9ca3af;
+            --silver-border: rgba(209, 213, 219, 0.15);
+            --purple-accent: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.3);
+            --red-accent: #f43f5e;
+            --red-glow: rgba(244, 63, 94, 0.3);
+            --current-font: 'Vazirmatn', sans-serif;
+            --writer-font: 'Vazirmatn', sans-serif;
+            --writer-font-size: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--current-font);
+            transition: font 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--silver-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(8, 7, 11, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--silver-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            cursor: pointer;
+            text-shadow: 0 0 10px var(--purple-glow);
+        }
+
+        .logo span {
+            color: var(--purple-accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 1.2rem;
+            overflow-x: auto;
+            padding-bottom: 0.3rem;
+            align-items: center;
+        }
+
+        nav::-webkit-scrollbar { display: none; }
+
+        nav a {
+            color: var(--silver-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        nav a:hover, nav a.active {
+            color: #fff;
+            text-shadow: 0 0 8px var(--silver-text);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3.5rem 1.5rem;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(8, 7, 11, 0) 70%);
+            border-radius: 20px;
+            border: 1px solid var(--silver-border);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .hero p {
+            color: var(--silver-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            border-right: 4px solid var(--purple-accent);
+            padding-right: 0.75rem;
+        }
+
+        .genre-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .genre-item {
+            background: var(--card-bg);
+            border: 1px solid var(--silver-border);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .genre-item:hover {
+            border-color: var(--purple-accent);
+            background: var(--card-hover);
+            transform: translateX(-5px);
+        }
+
+        .genre-item.adult {
+            border-color: rgba(244, 63, 94, 0.3);
+        }
+        .genre-item.adult:hover {
+            border-color: var(--red-accent);
+            background: rgba(244, 63, 94, 0.05);
+        }
+
+        .novel-card {
+            background: var(--card-bg);
+            border: 1px solid var(--silver-border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .novel-card h3 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .novel-card p {
+            color: var(--silver-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.0rem;
+            line-height: 1.6;
+        }
+
+        .badge-pdf {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--purple-accent);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .btn {
+            background: var(--card-hover);
+            color: #fff;
+            border: 1px solid var(--purple-accent);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background: var(--purple-accent);
+            box-shadow: 0 0 10px var(--purple-glow);
+        }
+
+        .btn-adult {
+            border-color: var(--red-accent);
+        }
+        .btn-adult:hover {
+            background: var(--red-accent);
+            box-shadow: 0 0 10px var(--red-glow);
+        }
+
+        .row-inputs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .row-inputs .form-control {
+            margin-bottom: 0;
+        }
+
+        /* ابزارهای پیشرفته صفحه نویسندگی */
+        .writer-toolbar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            background: var(--bg-color);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--silver-border);
+            align-items: center;
+        }
+
+        .writer-toolbar select, .writer-toolbar input {
+            background: var(--card-bg);
+            border: 1px solid var(--silver-border);
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .writer-textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: var(--bg-color);
+            border: 1px solid var(--silver-border);
+            border-radius: 8px;
+            color: #fff;
+            text-align: right;
+            resize: vertical;
+            min-height: 250px;
+            font-family: var(--writer-font) !important;
+            font-size: var(--writer-font-size) !important;
+            line-height: 1.9;
+        }
+
+        .writer-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--silver-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border: 1px solid var(--purple-accent);
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%; max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 20px var(--purple-glow);
+        }
+
+        .modal.adult-modal {
+            border-color: var(--red-accent);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        .modal h3 { color: #fff; margin-bottom: 1rem; }
+        .modal p { color: var(--silver-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; }
+        
+        .form-control {
+            width: 100%; padding: 0.75rem; margin-bottom: 1rem;
+            background: var(--bg-color); border: 1px solid var(--silver-border);
+            border-radius: 8px; color: #fff; text-align: right;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--purple-accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--silver-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--silver-border);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" onclick="switchPage('home')">Midnight<span>.</span></div>
+        <nav>
+            <a onclick="switchPage('home')">خانه</a>
+            <a onclick="switchPage('online-novels')">رمان‌های آنلاین</a>
+            <a onclick="switchPage('author-panel')" class="active">نویسندگی</a>
+            <a onclick="openAuthModal()">ورود</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- صفحه خانه -->
+        <div id="page-home" class="page page-view">
+            <div class="hero">
+                <h1>قلمرو تاریک و بی‌مرزِ میدنایت</h1>
+                <p>به دنیای داستان‌های مرموز، دارک و ممنوعه خوش آمدید. از لیست زیر ژانر دلخواه‌تان را انتخاب کنید...</p>
+            </div>
+
+            <div class="section-title">دسته‌بندی ژانرها</div>
+            <div class="genre-list">
+                <div class="genre-item" onclick="switchPage('fantasy')">
+                    <span>فانتزی (کنترل زمان و جادو)</span>
+                    <span>←</span>
+                </div>
+                <div class="genre-item" onclick="switchPage('romance')">
+                    <span>عاشقانه</span>
+                    <span>←</span>
+                </div>
+                <div class="genre-item" onclick="switchPage('arbabi')">
+                    <span>اربابی / مافیایی</span>
+                    <span>←</span>
+                </div>
+                <div class="genre-item" onclick="switchPage('comedy')">
+                    <span>طنز</span>
+                    <span>←</span>
+                </div>
+                <div class="genre-item" onclick="switchPage('horror')">
+                    <span>ترسناک و دارک</span>
+                    <span>←</span>
+                </div>
+                <div class="genre-item" onclick="switchPage('social')">
+                    <span>اجتماعی و درام</span>
+                    <span>←</span>
+                </div>
+                <div class="genre-item adult" onclick="checkAdultAccess()">
+                    <span style="color: #f43f5e; font-weight: 700;">🔞 بخش ویژه (+۱۸ / بزرگسال)</span>
+                    <span>🔒</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحات ژانرها و فایل‌ها -->
+        <div id="page-fantasy" class="page page-view">
+            <div class="section-title">رمان‌های ژانر فانتزی</div>
+            <div class="novel-card">
+                <h3>نِوِلیا و همراهان <span class="badge-pdf">نسخه PDF (مخصوص ادمین)</span></h3>
+                <p>دختری با چشم‌های نقره‌ای و قدرت زمان...</p>
+                <button class="btn" onclick="checkAuthAndDownload('فایل PDF فانتزی')">دانلود PDF</button>
+            </div>
+            <button class="btn" style="background: transparent; margin-top: 1rem;" onclick="switchPage('home')">← بازگشت به خانه</button>
+        </div>
+
+        <div id="page-romance" class="page page-view">
+            <div class="section-title">رمان‌های ژانر عاشقانه</div>
+            <div class="novel-card">
+                <h3>عشق در سایه مه <span class="badge-pdf">نسخه PDF (مخصوص ادمین)</span></h3>
+                <p>روایتی لطیف از احساسات در دل شب...</p>
+                <button class="btn" onclick="checkAuthAndDownload('فایل PDF عاشقانه')">دانلود PDF</button>
+            </div>
+            <button class="btn" style="background: transparent; margin-top: 1rem;" onclick="switchPage('home')">← بازگشت به خانه</button>
+        </div>
+
+        <div id="page-arbabi" class="page page-view">
+            <div class="section-title">رمان‌های ژانر اربابی و مافیایی</div>
+            <div class="novel-card">
+                <h3>امپراتوری سایه‌ها <span class="badge-pdf">نسخه PDF (مخصوص ادمین)</span></h3>
+                <p>قدرت، ترس و عشق‌های ممنوعه در عمق مافیا...</p>
+                <button class="btn" onclick="checkAuthAndDownload('فایل PDF اربابی')">دانلود PDF</button>
+            </div>
+            <button class="btn" style="background: transparent; margin-top: 1rem;" onclick="switchPage('home')">← بازگشت به خانه</button>
+        </div>
+
+        <div id="page-comedy" class="page page-view">
+            <div class="section-title">رمان‌های ژانر طنز</div>
+            <div class="novel-card">
+                <h3>خنده‌بازارِ میدنایت <span class="badge-pdf">نسخه PDF (مخصوص ادمین)</span></h3>
+                <p>لحظات پر از خنده و شیطنت...</p>
+                <button class="btn" onclick="checkAuthAndDownload('فایل PDF طنز')">دانلود PDF</button>
+            </div>
+            <button class="btn" style="background: transparent; margin-top: 1rem;" onclick="switchPage('home')">← بازگشت به خانه</button>
+        </div>
+
+        <div id="page-horror" class="page page-view">
+            <div class="section-title">رمان‌های ژانر ترسناک و دارک</div>
+            <div class="novel-card">
+                <h3>وحشت در سکوت شب <span class="badge-pdf">نسخه PDF (مخصوص ادمین)</span></h3>
+                <p>قصه‌های دلهره‌آور و تاریک...</p>
+                <button class="btn" onclick="checkAuthAndDownload('فایل PDF ترسناک')">دانلود PDF</button>
+            </div>
+            <button class="btn" style="background: transparent; margin-top: 1rem;" onclick="switchPage('home')">← بازگشت به خانه</button>
+        </div>
+
+        <div id="page-social" class="page page-view">
+            <div class="section-title">رمان‌های ژانر اجتماعی</div>
+            <div class="novel-card">
+                <h3>واقعیت‌های پنهان <span class="badge-pdf">نسخه PDF (مخصوص ادمین)</span></h3>
+                <p>درام‌های واقعی از دل جامعه...</p>
+                <button class="btn" onclick="checkAuthAndDownload('فایل PDF اجتماعی')">دانلود PDF</button>
+            </div>
+            <button class="btn" style="background: transparent; margin-top: 1rem;" onclick="switchPage('home')">← بازگشت به خانه</button>
+        </div>
+
+        <div id="page-adult" class="page page-view">
+            <div class="section-title" style="border-right-color: var(--red-accent);">رمان‌های ویژه (+۱۸)</div>
+            <div class="novel-card" style="border-color: rgba(244, 63, 94, 0.3);">
+                <h3>قلمرو ممنوعه (مخصوص بزرگسالان) <span class="badge-pdf" style="background: rgba(244,63,94,0.1); color: var(--red-accent);">مخصوص ادمین</span></h3>
+                <p>صحنه‌ها و داستان‌های بدون سانسور، دارک و بزرگسال...</p>
+                <button class="btn btn-adult" onclick="checkAuthAndDownload('فایل PDF +18')">دانلود PDF</button>
+            </div>
+            <button class="btn" style="background: transparent; margin-top: 1rem;" onclick="switchPage('home')">← بازگشت به صفحه اصلی</button>
+        </div>
+
+        <!-- صفحه رمان‌های آنلاین -->
+        <div id="page-online-novels" class="page page-view">
+            <div class="section-title">رمان‌های آنلاین (مطالعه پارت‌به‌پارت)</div>
+            <div class="novel-card">
+                <h3>پارت‌های زنده و در حال نگارش</h3>
+                <p>اینجا می‌تونی پارت‌های تازه منتشر شده رو به همراه شماره پارت و جزئیاتشون بخونی و لذت ببری.</p>
+                <button class="btn" onclick="alert('به زودی لیست پارت‌های آنلاین نمایش داده میشود!')">مشاهده پارت‌ها</button>
+            </div>
+        </div>
+
+        <!-- صفحه نویسندگی پیشرفته با فونت، اندازه‌های عددی و شماره پارت -->
+        <div id="page-author-panel" class="page page-view active">
+            <div class="hero" style="padding: 2rem 1rem;">
+                <h1>کارگاه نویسندگان میدنایت 🖋️</h1>
+                <p>قلمت رو بردار، شماره پارت رو وارد کن و داستانت رو به تاریکی گره بزن!</p>
+            </div>
+            
+            <div class="novel-card">
+                <h3>انتشار پارت جدید</h3>
+                
+                <input type="text" id="storyTitle" class="form-control" placeholder="عنوان رمان یا پارت...">
+                
+                <div class="row-inputs">
+                    <select id="storyGenre" class="form-control" style="flex: 2;">
+                        <option value="">انتخاب ژانر رمان...</option>
+                        <option value="fantasy">فانتزی (کنترل زمان و جادو)</option>
+                        <option value="romance">عاشقانه</option>
+                        <option value="arbabi">اربابی / مافیایی</option>
+                        <option value="comedy">طنز</option>
+                        <option value="horror">ترسناک و دارک</option>
+                        <option value="social">اجتماعی و درام</option>
+                        <option value="adult">بخش ویژه (+۱۸)</option>
+                    </select>
+
+                    <!-- ورودی شماره پارت برای اینکه همه بفهمن پارت چنده -->
+                    <input type="number" id="partNumber" class="form-control" placeholder="شماره پارت (مثلا 1)" min="1" style="flex: 1;">
+                </div>
+
+                <!-- نوار ابزار مخصوص محیط نوشتن -->
+                <div class="writer-toolbar">
+                    <label style="font-size: 0.85rem; color: var(--silver-muted);">فونت متن:</label>
+                    <select onchange="changeWriterFont(this.value)">
+                        <option value="'Vazirmatn', sans-serif">وزیر</option>
+                        <option value="'Sahel', sans-serif">ساحل</option>
+                        <option value="'Lalezar', cursive">لاله زار</option>
+                        <option value="'Samim', sans-serif">صمیم</option>
+                        <option value="'Shabnam', sans-serif">شبنم</option>
+                        <option value="'Gandom', serif">گندم</option>
+                        <option value="'Parastoo', serif">پرستو</option>
+                    </select>
+
+                    <label style="font-size: 0.85rem; color: var(--silver-muted); margin-right: auto;">اندازه قلم:</label>
+                    <select onchange="changeWriterFontSize(this.value)">
+                        <option value="12px">12</option>
+                        <option value="14px">14</option>
+                        <option value="16px" selected>16 (پیش‌فرض)</option>
+                        <option value="18px">18</option>
+                        <option value="20px">20</option>
+                        <option value="24px">24</option>
+                        <option value="28px">28</option>
+                    </select>
+                </div>
+
+                <!-- جعبه متن نگارش داستان -->
+                <textarea id="storyContent" class="writer-textarea" placeholder="کلماتت را از دلِ تاریکی بیرون بکش و روی این صفحه ثبت کن..." oninput="updateStats()"></textarea>
+                
+                <!-- آمار زنده -->
+                <div class="writer-stats">
+                    <span id="wordCount">تعداد کلمات: ۰</span>
+                    <span id="charCount">تعداد حروف: ۰</span>
+                </div>
+
+                <button class="btn" onclick="publishStory()">انتشار آنلاین پارت</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- مودال ثبت نام -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal">
+            <h3>در بسته است، مسافر! 🗝️</h3>
+            <p>برای دانلود فایل‌های اختصاصی، اول باید پا به قلمرو ما بذاری و ثبت‌نام کنی.</p>
+            <input type="text" class="form-control" placeholder="نام کاربری یا ایمیل...">
+            <button class="btn" style="width: 100%; margin-bottom: 0.5rem;" onclick="completeAuth()">ثبت‌نام و ورود</button>
+            <button class="btn" style="width: 100%; background: transparent; border-color: var(--silver-muted);" onclick="closeAuthModal()">برگشت</button>
+        </div>
+    </div>
+
+    <!-- مودال سن +18 -->
+    <div id="adultModal" class="modal-overlay">
+        <div class="modal adult-modal">
+            <h3 style="color: var(--red-accent);">اخطار سنّی (+۱۸) ⚠️</h3>
+            <p>این بخش شامل محتوای تاریک و بزرگسال است. آیا بالای ۱۸ سال هستید؟</p>
+            <button class="btn btn-adult" style="width: 100%; margin-bottom: 0.5rem;" onclick="enterAdultZone()">بله، بالای ۱۸ سال هستم</button>
+            <button class="btn" style="width: 100%; background: transparent; border-color: var(--silver-muted);" onclick="closeAdultModal()">خیر</button>
+        </div>
+    </div>
+
+    <footer>
+        تمامی حقوق محفوظ است | طراحی شده با تاریکی و نقره 🖤
+    </footer>
+
+    <script>
+        let isLoggedIn = false;
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function changeWriterFont(fontFamily) {
+            document.documentElement.style.setProperty('--writer-font', fontFamily);
+        }
+
+        function changeWriterFontSize(size) {
+            document.documentElement.style.setProperty('--writer-font-size', size);
+        }
+
+        function updateStats() {
+            let text = document.getElementById('storyContent').value.trim();
+            let words = text === '' ? 0 : text.split(/\s+/).length;
+            let chars = text.length;
+            document.getElementById('wordCount').innerText = 'تعداد کلمات: ' + words;
+            document.getElementById('charCount').innerText = 'تعداد حروف: ' + chars;
+        }
+
+        function publishStory() {
+            let title = document.getElementById('storyTitle').value;
+            let genre = document.getElementById('storyGenre').value;
+            let partNum = document.getElementById('partNumber').value;
+            let content = document.getElementById('storyContent').value;
+
+            if(!title || !genre || !partNum || !content) {
+                alert('لطفاً عنوان، ژانر، شماره پارت و متن داستان را کامل پر کنید!');
+                return;
+            }
+
+            alert('پارت ' + partNum + ' با عنوان «' + title + '» با موفقیت در بخش آنلاین منتشر شد!');
+            document.getElementById('storyTitle').value = '';
+            document.getElementById('partNumber').value = '';
+            document.getElementById('storyContent').value = '';
+            updateStats();
+        }
+
+        function checkAuthAndDownload(fileName) {
+            if (isLoggedIn) {
+                alert('دانلود ' + fileName + ' شروع شد!');
+            } else {
+                document.getElementById('authModal').style.display = 'flex';
+            }
+        }
+
+        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+        function completeAuth() {
+            isLoggedIn = true;
+            closeAuthModal();
+            alert('خوش آمدید! حالا به تمام فایل‌ها دسترسی دارید.');
+        }
+
+        function checkAdultAccess() { document.getElementById('adultModal').style.display = 'flex'; }
+        function closeAdultModal() { document.getElementById('adultModal').style.display = 'none'; }
+        function enterAdultZone() {
+            closeAdultModal();
+            switchPage('adult');
+        }
+    </script>
+</body>
+</html>
